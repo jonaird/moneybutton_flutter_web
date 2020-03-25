@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  easy_web_view:
+  easy_web_view: ^1.2.0
   flutter:
     sdk: flutter
 
