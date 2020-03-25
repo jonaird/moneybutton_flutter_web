@@ -15,4 +15,8 @@ container(
   )
 ```
 
+### Issues
+
+For some reason the iframe reloads every time the cursor points over another native html element (such as text fields or iframes). If you can figure out why please submit an issue!
+
 
