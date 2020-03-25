@@ -1,8 +1,9 @@
 name: moneybutton_flutter_web
-description: A new Flutter package project.
+description: An experimental MoneyButton plugin for Flutter Web
 version: 0.0.1
-author:
-homepage:
+
+repository: 'https://github.com/jonaird/moneybutton_flutter_web'
+homepage: 'https://github.com/jonaird/moneybutton_flutter_web'
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
