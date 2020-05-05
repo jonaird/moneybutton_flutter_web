@@ -22,7 +22,8 @@ container(
  This package includes a polyfill for the official [api](https://docs.moneybutton.com/docs/mb-invisible-money-button.html) with the one difference being that you use `IMB(options)` instead of `moneyButton.IMB(options)`; 
   
 Example:
-```var imb = IMB({'clientIdentifier':'your identifier','suggestedAmount':{'amount':'1','currency':'USD'},'onNewPermissionGranted':(String token){print(token);}});
+```
+var imb = IMB({'clientIdentifier':'your identifier','suggestedAmount':{'amount':'1','currency':'USD'},'onNewPermissionGranted':(String token){print(token);}});
 ```
 
 
