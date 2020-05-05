@@ -49,7 +49,7 @@ class IMB {
 
   Future swipe(Map options) {
     var jsObj = _jsObjFromMap(options);
-    return promiseToFutureAsMap(_mb.swipe(jsObj));
+    return promiseToFuture(_mb.swipe(jsObj)).then((value)=> _convertToDart(value));
   }
 
   amountLeft() {
@@ -57,8 +57,8 @@ class IMB {
   }
 
   Future askForPermission(Map options) {
-    var jsObj = jsonParse(jsonEncode(options));
-    return promiseToFutureAsMap(_mb.askForPermission(jsObj));
+    var jsObj = _jsObjFromMap(options);
+    return promiseToFuture(_mb.askForPermission(jsObj));
   }
 }
 
@@ -82,3 +82,22 @@ _jsObjFromMap(Map map) {
 
   return jsObj;
 }
+
+dynamic _convertToDart(value) {
+  return jsonDecode(jsonStringify(value));
+
+  // // Value types.
+  // if (value == null) return null;
+  // if (value is bool || value is num || value is DateTime || value is String) return value;
+
+  // // JsArray.
+  // if (value is Iterable) return value.map(_convertToDart).toList();
+
+  // // JsObject.
+  // if(value is JsObject) return new Map.fromIterable(_getKeysOfObject(value), value: (key) => _convertToDart(value[key]));
+
+  // return _convertToDart(JsObject.fromBrowserObject(value));
+}
+
+/// Gets the enumerable properties of the specified JavaScript [object].
+List _getKeysOfObject(JsObject object) => (context['Object'] as JsFunction).callMethod('keys', [object]);

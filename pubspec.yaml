@@ -1,6 +1,6 @@
 name: moneybutton_flutter_web
 description: An experimental MoneyButton plugin for Flutter Web
-version: 0.0.2
+version: 0.1.1
 
 repository: 'https://github.com/jonaird/moneybutton_flutter_web'
 homepage: 'https://github.com/jonaird/moneybutton_flutter_web'

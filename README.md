@@ -19,6 +19,9 @@ container(
 ``` 
  
  ### Invisible Money Button   
+ To use invisible money button, include the Money Button script tag in your index.html file:  
+ `<script src="https://www.moneybutton.com/moneybutton.js"></script>` 
+
  This package includes a polyfill for the official [api](https://docs.moneybutton.com/docs/mb-invisible-money-button.html) with the one difference being that you use `IMB(options)` instead of `moneyButton.IMB(options)`; 
   
 Example:

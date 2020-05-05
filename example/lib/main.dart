@@ -3,9 +3,7 @@ import 'package:moneybutton_flutter_web/moneybutton_flutter_web.dart';
 import 'package:upstate/upstate.dart';
 
 void main() {
-  runApp(StateWidget(
-    state:StateObject({'IMB':null}),
-    child: MyApp()));
+  runApp(StateWidget(state: StateObject({'IMB': null}), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -35,20 +33,31 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   StateObject state;
   void _incrementCounter() {
-    if(_counter==0){
-      state['IMB'].value = IMB({'clientIdentifier':'a4764ce4c09db65ddb90a02701fd2d53','suggestedAmount':{'amount':'1','currency':'USD'},'onNewPermissionGranted':(String token){print(token);}});
-    } else if(_counter==1){
-      state['IMB'].value.askForPermission({'suggestedAmount':{'amount':'1','currency':'USD'}}).then((res)=>print(res));
 
-    } else if(_counter==2){
-      state['IMB'].value.amountLeft().then((result)=>print(result));
-
-    } else{
-      state['IMB'].value.swipe({'to':'canyouhandleme@handcash.io','amount':'0.01','currency':'USD'}).then((res)=>print(res));
+    if (_counter == 0) {
+      state['IMB'].value = IMB({
+        'clientIdentifier': 'a4764ce4c09db65ddb90a02701fd2d53',
+        'suggestedAmount': {'amount': '1', 'currency': 'USD'},
+        'onNewPermissionGranted': (String token) {
+          print(token);
+        }
+      });
+    } else if (_counter == 1) {
+      state['IMB'].value.askForPermission({
+        'suggestedAmount': {'amount': '1', 'currency': 'USD'}
+      });
+    } else if (_counter == 2) {
+      state['IMB'].value.amountLeft().then((result) => print(result));
+    } else {
+      state['IMB'].value.swipe({
+        'to': 'canyouhandleme@handcash.io',
+        'amount': '0.01',
+        'currency': 'USD'
+      }).then((res) => print(res));
     }
-   
+
     //  ..swipe({'to':'cheers@moneybutton.com','amount':'0.01','currency':'USD'});
-     
+
     setState(() {
       _counter++;
     });
@@ -56,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    state=StateObject.of(context);
+    state = StateObject.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -79,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }

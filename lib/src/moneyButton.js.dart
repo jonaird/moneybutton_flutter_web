@@ -15,6 +15,8 @@ class IMBJS{
   external Promise askForPermission(config);
 }
 
+@JS('console.log')
+external log(object);
 
 @JS('JSON.parse')
 external jsonParse(String json);
