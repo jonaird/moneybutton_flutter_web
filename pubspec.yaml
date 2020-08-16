@@ -1,12 +1,12 @@
 name: moneybutton_flutter_web
 description: An experimental MoneyButton plugin for Flutter Web
-version: 0.1.1
+version: 0.1.2
 
 repository: 'https://github.com/jonaird/moneybutton_flutter_web'
 homepage: 'https://github.com/jonaird/moneybutton_flutter_web'
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">2.3.0 <3.0.0"
 
 dependencies:
   easy_web_view: ^1.2.0

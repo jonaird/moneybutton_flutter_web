@@ -16,9 +16,8 @@ class MoneyButton extends StatelessWidget {
 
   String viewType;
   MoneyButton(Map options, {this.width = 200, this.key}) {
-    if (key != null) {
-      key = UniqueKey();
-    }
+    if (key != null) key = UniqueKey();
+
     url =
         'https://x.bitfs.network/cddadb9f0d9e022b30ebf53eecd2eace05ae48b5291e3e36b2aa103f837c79a7.out.0.3' +
             '?data=' +
@@ -39,24 +38,74 @@ class MoneyButton extends StatelessWidget {
   }
 }
 
+class Amount {
+  final double amount;
+  final String currency;
+  int satoshis;
+
+  Amount({@required this.amount, @required this.currency, this.satoshis});
+
+  Map<String, String> toMap() =>
+      {'amount': amount.toString(), 'currency': currency};
+}
+
 class IMB {
   IMBJS _mb;
 
-  IMB(Map config) {
+  IMB(
+      {@required String clientIdentifier,
+      Amount minimumAmount,
+      Amount suggestedAmount,
+      String permission,
+      Function(String token) onNewPermissionGranted}) {
+    var config = {
+      'clientIdentifier': clientIdentifier,
+      if (minimumAmount != null) 'minimumAmount': minimumAmount.toMap(),
+      if (suggestedAmount != null) 'suggestedAmount': suggestedAmount.toMap(),
+      if (permission != null) 'permission': permission,
+      if (onNewPermissionGranted != null)
+        'onNewPermissionGranted': onNewPermissionGranted
+    };
+
     var jsObj = _jsObjFromMap(config);
     _mb = IMBJS(jsObj);
   }
 
-  Future swipe(Map options) {
+  Future swipe(
+      {Amount amount,
+      String buttonData,
+      String buttonId,
+      String opReturn,
+      String to,
+      List cryptoOperations,
+      List outputs}) {
+    var options = {
+      if (amount != null) ...amount.toMap(),
+      if (buttonData != null) 'buttonData': buttonData,
+      if (buttonId != null) 'buttonId': buttonId,
+      if (opReturn != null) 'opReturn': opReturn,
+      if (to != null) 'to': to,
+      if (outputs != null) 'outputs': outputs,
+      if (cryptoOperations != null) 'cryptoOperations': cryptoOperations
+    };
+
     var jsObj = _jsObjFromMap(options);
-    return promiseToFuture(_mb.swipe(jsObj)).then((value)=> _convertToDart(value));
+    return promiseToFuture(_mb.swipe(jsObj))
+        .then((value) => _convertToDart(value));
   }
 
-  amountLeft() {
-    return promiseToFutureAsMap(_mb.amountLeft());
+  Future<Amount> amountLeft() {
+    return promiseToFutureAsMap(_mb.amountLeft()).then((value) => Amount(
+        amount: value['amount'],
+        currency: value['currency'],
+        satoshis: value['satoshis']));
   }
 
-  Future askForPermission(Map options) {
+  Future askForPermission({Amount minimumAmount, Amount suggestedAmount}) {
+    var options = {
+      if (minimumAmount != null) 'minimumAmount': minimumAmount.toMap(),
+      if (suggestedAmount != null) 'suggestedAmount': suggestedAmount.toMap(),
+    };
     var jsObj = _jsObjFromMap(options);
     return promiseToFuture(_mb.askForPermission(jsObj));
   }
@@ -85,19 +134,4 @@ _jsObjFromMap(Map map) {
 
 dynamic _convertToDart(value) {
   return jsonDecode(jsonStringify(value));
-
-  // // Value types.
-  // if (value == null) return null;
-  // if (value is bool || value is num || value is DateTime || value is String) return value;
-
-  // // JsArray.
-  // if (value is Iterable) return value.map(_convertToDart).toList();
-
-  // // JsObject.
-  // if(value is JsObject) return new Map.fromIterable(_getKeysOfObject(value), value: (key) => _convertToDart(value[key]));
-
-  // return _convertToDart(JsObject.fromBrowserObject(value));
 }
-
-/// Gets the enumerable properties of the specified JavaScript [object].
-List _getKeysOfObject(JsObject object) => (context['Object'] as JsFunction).callMethod('keys', [object]);

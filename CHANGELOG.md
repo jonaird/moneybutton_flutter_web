@@ -1,3 +1,5 @@
+## [0.1.2] - Added some static typing instead of requiring maps
+
 ## [0.1.1] - swipe future now returns nested Map instead of js object
 
 ## [0.1.0] - Added support for invisible moneybutton
