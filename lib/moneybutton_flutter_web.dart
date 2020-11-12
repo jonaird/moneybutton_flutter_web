@@ -13,9 +13,11 @@ class MoneyButton extends StatelessWidget {
   Key key;
   String url;
   double width;
+  double height;
+  Function onLoaded;
 
   String viewType;
-  MoneyButton(Map options, {this.width = 200, this.key}) {
+  MoneyButton(Map options, {this.width = 200, this.height = 68, this.onLoaded, this.key}) {
     if (key != null) key = UniqueKey();
 
     url =
@@ -28,11 +30,12 @@ class MoneyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: width,
-        height: 68,
+        height: height,
         child: EasyWebView(
+          onLoaded: onLoaded ?? () {},
           src: url,
           width: width,
-          height: 68,
+          height: height,
           key: key,
         ));
   }
