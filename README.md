@@ -26,7 +26,8 @@ container(
   
 Example:
 ```
-var imb = IMB(clientIdentifier:'your identifier',suggestedAmount:Amount(amount:1,currency:"USD"),onNewPermissionGranted:(String token){print(token);});
+var imb = IMB(clientIdentifier:'your identifier',suggestedAmount:Amount(amount:1,currency:"USD"),onNewPermissionGranted:(String token){print(token);}
+);
 ```
 
 
